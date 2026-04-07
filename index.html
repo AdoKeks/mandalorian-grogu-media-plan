@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Mandalorian & Grogu x Vyro</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #05080f;
+      --bg2: #080d18;
+      --card: #0d1526;
+      --border: rgba(180, 140, 60, 0.2);
+      --gold: #c9962a;
+      --gold-light: #e8b84b;
+      --gold-dim: rgba(201, 150, 42, 0.15);
+      --text: #e8e4d8;
+      --muted: #8a8a9a;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(5, 8, 15, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 30%, rgba(201, 150, 42, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(20, 40, 80, 0.5) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted);
+      margin-bottom: 3rem;
+      max-width: 560px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    .hero-meta-item {
+      text-align: center;
+    }
+
+    .hero-meta-item .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-meta-item .value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-cue svg { opacity: 0.5; }
+
+    /* SECTIONS */
+    section {
+      padding: 7rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 660px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* CARDS GRID */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .card:hover {
+      border-color: rgba(201, 150, 42, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* NUMBERED STEPS */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.25s;
+    }
+
+    .step:hover { border-color: rgba(201, 150, 42, 0.4); }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    .step-body h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .step-body p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(160deg, #0d1526, #111d35);
+    }
+
+    .pricing-card.featured::before {
+      content: 'RECOMMENDED';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #000;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      padding: 3px 12px;
+      border-radius: 20px;
+    }
+
+    .pricing-card:hover {
+      border-color: rgba(201, 150, 42, 0.6);
+      transform: translateY(-4px);
+    }
+
+    .pricing-tier {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-investment {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-cpm {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-cpm-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-views {
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    /* CPM COMPARISON TABLE */
+    .cpm-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cpm-table thead tr {
+      border-bottom: 2px solid var(--border);
+    }
+
+    .cpm-table th, .cpm-table td {
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text);
+      border-right: 1px solid var(--border);
+    }
+
+    .cpm-table th:last-child, .cpm-table td:last-child { border-right: none; }
+
+    .cpm-table tbody tr { border-top: 1px solid var(--border); }
+
+    .cpm-table tbody tr:hover td { background: rgba(201, 150, 42, 0.05); }
+
+    .cpm-tier-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 0.2rem;
+    }
+
+    .cpm-tier-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .cpm-row-label {
+      font-size: 0.7rem !important;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted) !important;
+      text-align: left !important;
+      font-weight: 600;
+      white-space: nowrap;
+      background: var(--card);
+    }
+
+    .cpm-t1 { background: rgba(201, 150, 42, 0.06) !important; }
+    .cpm-t2 { background: rgba(201, 150, 42, 0.13) !important; }
+    .cpm-t3 { background: rgba(201, 150, 42, 0.24) !important; }
+    .cpm-row-label { background: var(--bg) !important; }
+
+    /* ALLOCATION TABLE */
+    .alloc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+
+    .alloc-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .alloc-table td {
+      padding: 1rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .alloc-table tr:last-child td { border-bottom: none; }
+
+    .alloc-table tr:hover td { background: var(--gold-dim); }
+
+    .alloc-pct {
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    /* TIMELINE */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.45rem;
+      top: 0.4rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--bg);
+    }
+
+    .timeline-date {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* TAGS */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .tag {
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, #0d1526, #111d35);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4rem 3rem;
+      text-align: center;
+      margin: 0 2rem 7rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(201, 150, 42, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .next-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .next-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+
+    .next-step-item .check {
+      color: var(--gold-light);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .next-step-item span {
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* CASE STUDY CARDS */
+    .case-study-card {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .case-study-card:hover {
+      border-color: rgba(201, 150, 42, 0.6);
+      transform: translateY(-3px);
+    }
+
+    .case-study-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .case-study-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .case-study-arrow {
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .case-study-card:hover .case-study-arrow {
+      color: var(--gold-light);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+
+      section { padding: 4rem 1.25rem; }
+
+      .hero { padding: 5rem 1.25rem 3rem; }
+
+      .hero-meta { gap: 1.5rem; }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      #case-studies .grid-2,
+      #case-studies > div[style] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      /* CPM table — stack into a card-per-tier layout */
+      .cpm-table thead { display: none; }
+      .cpm-table,
+      .cpm-table tbody,
+      .cpm-table tr,
+      .cpm-table td {
+        display: block;
+        width: 100%;
+      }
+      .cpm-table tr {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+      }
+      .cpm-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-right: none;
+        border-top: none;
+        font-size: 0.88rem;
+      }
+      .cpm-table td.cpm-row-label {
+        display: none;
+      }
+      .cpm-table td::before {
+        content: attr(data-label);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .cpm-table td.cpm-t1,
+      .cpm-table td.cpm-t2,
+      .cpm-table td.cpm-t3 {
+        background: none;
+      }
+
+      /* Allocation table */
+      .alloc-table thead { display: none; }
+      .alloc-table,
+      .alloc-table tbody,
+      .alloc-table tr,
+      .alloc-table td {
+        display: block;
+        width: 100%;
+      }
+      .alloc-table tr {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 0.75rem;
+        padding: 0.85rem 1rem;
+      }
+      .alloc-table td {
+        padding: 0.25rem 0;
+        border-bottom: none;
+        font-size: 0.88rem;
+      }
+
+      .timeline { padding-left: 1.25rem; }
+
+      .cta-section { padding: 2.5rem 1.25rem; margin: 0 1.25rem 4rem; }
+
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">Vyro</div>
+    <ul class="nav-links">
+      <li><a href="#opportunity">Opportunity</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
+      <li><a href="#strategy">Strategy</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#next-steps">Next Steps</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow">Social Content & Distribution Campaign</p>
+    <h1 class="hero-title">The Mandalorian<br/>&amp; Grogu <span>x Vyro</span></h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="label">Prepared by</div>
+        <div class="value">Vyro</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Client</div>
+        <div class="value">Disney / Lucasfilm</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Campaign Window</div>
+        <div class="value">May 8 &ndash; May 22, 2026</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Date</div>
+        <div class="value">April 2026</div>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Scroll
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 01. OPPORTUNITY -->
+  <section id="opportunity">
+    <p class="section-label">01 &mdash; The Opportunity</p>
+    <h2 class="section-title">Why This Campaign, Why Now</h2>
+    <p class="section-desc">Drive mass awareness for The Mandalorian &amp; Grogu theatrical release through organic-feeling creator content that floods social feeds in the two weeks leading up to opening day.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>Drive Mass Awareness</h3>
+        <p>Build unstoppable cultural momentum for the theatrical release on May 22, 2026 across every major short-form platform.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌌</div>
+        <h3>Reach Lapsed Fans</h3>
+        <p>Reach casual and lapsed Star Wars fans who aren't already engaged with core franchise marketing through organic, platform-native content.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <h3>Flood Social Feeds</h3>
+        <p>Saturate TikTok, Instagram Reels, YouTube Shorts, and X with content that feels native and genuine — not promotional.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem;">
+      <h3 style="color: var(--white); font-size: 1.1rem; margin-bottom: 1rem;">Why Vyro</h3>
+      <p style="color: var(--muted); max-width: 760px; margin-bottom: 1rem;">Vyro is a marketplace connecting brands with approximately 80,000 vetted short-form video creators across TikTok, Instagram, and YouTube Shorts. Our creators distribute content in a way that feels native and organic to each platform — not promotional. We operate on a CPM model: you set a rate, and you only pay for views actually delivered.</p>
+      <p style="color: var(--muted); max-width: 760px; margin-bottom: 2rem;">Every creator in our network is pre-vetted through OAuth backend analytics access. We check viewership geography, engagement quality, and suspicious follower patterns to ensure real reach with real audiences.</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🔍</div>
+          <h3>Clip Review</h3>
+          <p>Every submitted clip is reviewed against the campaign brief to ensure it aligns with required messaging, brand safety standards, and creative guidelines before it goes live.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h3>Campaign Monitoring & Fraud Prevention</h3>
+          <p>Clips are continuously monitored throughout the campaign to confirm they remain compliant and that engagement appears organic and authentic — not inflated.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚖️</div>
+          <h3>FTC Compliance</h3>
+          <p>Required disclosures and campaign-specific hashtag language are built directly into each campaign brief. Clips must meet those requirements to qualify, ensuring campaigns are executed responsibly and in line with advertising guidelines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02. SERVICES -->
+  <section id="services">
+    <p class="section-label">02 &mdash; What We Do</p>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-desc">A layered approach combining core clipping distribution with high-impact add-ons designed for tentpole theatrical releases.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="card">
+        <div class="card-icon">✂️</div>
+        <h3>Core: Clipping</h3>
+        <p>We take your existing content — trailers, BTS footage, TV spots — and distribute it across thousands of short-form video channels. Our 80,000+ vetted creators clip, caption, and post content that feels native to TikTok, Instagram Reels, and YouTube Shorts. A 5,000-view minimum per clip means you only pay for content that performs.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎭</div>
+        <h3>Add-On: UGC-Style Content</h3>
+        <p>Scripted, produced pieces that feel human-made and organic — costumed characters reacting to trailers, fan-style reaction videos with on-screen text. Produced in-house by our team. Content that doesn't look like it came from a studio.</p>
+        <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="https://drive.google.com/file/d/15APrW4Ar2EEugRPj_LrKzSNASN8z_bRy/view?usp=sharing" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> Predator: Badlands
+          </a>
+          <a href="https://drive.google.com/file/d/1-AVkdirOxMo9svXZ6aC9dCVU4DBTwS3T/view?usp=drive_link" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> The Mandalorian &amp; Grogu
+          </a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎬</div>
+        <h3>Add-On: Cinematic Edits</h3>
+        <p>Polished re-edits of your trailers and footage optimized for vertical video — tighter pacing, platform-native text overlays, trending audio integration. Distributed through fan pages known for cinematic movie edits.</p>
+        <div style="margin-top: 1.25rem;">
+          <a href="https://drive.google.com/drive/folders/164NxEryz4NNVAGd3wqLssk1_4nb1WTDx?usp=drive_link" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> Cinematic Edits
+          </a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">👑</div>
+        <h3>Add-On: White Glove Distribution</h3>
+        <p>Curated placement on Vyro's most popular and influential social pages. Content is tailored to each page's style and voice so it feels like the page chose to feature it — not like a studio ad.</p>
+        <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="https://www.instagram.com/p/DSSnOC9DdM-/?igsh=MWUxeDcyeDY1Nzc5eA%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> Avatar: Fire and Ash
+          </a>
+          <a href="https://www.instagram.com/p/DSaaIQ_jIG_/?igsh=MXVnMGgwYmw1czBwbQ%3D%3D&img_index=1" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> Avatar: Fire and Ash (2)
+          </a>
+          <a href="https://www.instagram.com/p/DVerXV4AJ68/?igsh=MXRkZ2ZrbXVqNDN4bQ%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> Hoppers
+          </a>
+          <a href="https://www.instagram.com/p/DUV3L7QgBlV/?igsh=MXcwcGMzN2hoZGVqMA%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> Send Help
+          </a>
+          <a href="https://www.instagram.com/p/DQwqAPZAMDd/?igsh=eWR4cmZybDQ2bWtu&img_index=1" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
+            <span style="opacity:0.6;">&#9654;</span> Predator: Badlands
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DISNEY CASE STUDIES -->
+  <section id="case-studies">
+    <p class="section-label">Disney Case Studies</p>
+    <h2 class="section-title">Previous Theatrical Campaigns</h2>
+    <p class="section-desc">Vyro has run campaigns for Disney theatrical releases across multiple franchises. Click any campaign to view the full case study.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+      <a href="https://docs.google.com/presentation/d/1X-WxOhSZilH6Fje79titNXJyv8zWxbZhesZNl2pCm-o/edit?slide=id.g3a81ca77835_1_0#slide=id.g3a81ca77835_1_0" target="_blank" class="case-study-card">
+        <div class="case-study-title">Avatar: Fire and Ash</div>
+        <div class="case-study-arrow">View Case Study &rarr;</div>
+      </a>
+      <a href="https://docs.google.com/presentation/d/1fYMktFQTojJNGAJ0H2YGuQYrfz6c9r1GP95lzDIf7Wk/edit?slide=id.g3a81ca77835_1_0#slide=id.g3a81ca77835_1_0" target="_blank" class="case-study-card">
+        <div class="case-study-title">Hoppers</div>
+        <div class="case-study-arrow">View Case Study &rarr;</div>
+      </a>
+      <a href="https://docs.google.com/presentation/d/1-hBfTCkV9yVdy8L9-N0eeZveaJuHxH_qVLSfdrfVc-s/edit?slide=id.g3a81ca77835_1_0#slide=id.g3a81ca77835_1_0" target="_blank" class="case-study-card">
+        <div class="case-study-title">Send Help</div>
+        <div class="case-study-arrow">View Case Study &rarr;</div>
+      </a>
+      <a href="https://docs.google.com/presentation/d/1l-tbGsDnPwZQMfPNZ3FjqOkH-dvaB73J/edit?slide=id.p1#slide=id.p1" target="_blank" class="case-study-card">
+        <div class="case-study-title">Predator: Badlands</div>
+        <div class="case-study-arrow">View Case Study &rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03. STRATEGY -->
+  <section id="strategy">
+    <p class="section-label">03 &mdash; Campaign Strategy</p>
+    <h2 class="section-title">Timeline & Execution</h2>
+    <p class="section-desc">A concentrated two-week campaign window leading up to the May 22, 2026 theatrical release. Maximum intensity, maximum saturation.</p>
+
+    <!-- Timeline -->
+    <div style="margin-bottom: 3.5rem;">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">May 8 – 22, 2026</div>
+          <div class="timeline-title">Launch Wave</div>
+          <div class="timeline-desc">Flood social platforms with clipping content, debut UGC stunts, and release the first round of cinematic edits. Establish presence across all major short-form platforms. Save the White Glove and UGC for the 5 days leading up to the theatrical release.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">May 17 – 22, 2026 — Peak Intensity</div>
+          <div class="timeline-title">White Glove & UGC Activation</div>
+          <div class="timeline-desc">White Glove premium page placements and UGC stunts go live. All four services firing simultaneously — maximum saturation heading into opening weekend.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset Requirements -->
+    <div style="margin-bottom: 3.5rem;">
+      <h3 style="color: var(--white); font-size: 1.1rem; margin-bottom: 0.5rem;">Asset Requirements</h3>
+      <p style="color: var(--muted); font-size: 0.9rem; max-width: 700px; margin-bottom: 1.5rem;">More assets equals better performance. Platform algorithms prioritize new content, so a diverse asset library is essential for sustained reach. We recommend approximately 20 assets to start. For reference: the Send Help campaign leveraged red carpet and premiere footage that drove especially strong engagement from fandom and celebrity-style pages.</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">🎬</div>
+          <h3>Trailers & TV Spots</h3>
+          <p>Official trailers, teasers, and TV spots — the foundation of the clipping library.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎥</div>
+          <h3>Behind-the-Scenes</h3>
+          <p>BTS footage, cast interviews, and press tour moments that feel intimate and shareable.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌟</div>
+          <h3>Red Carpet & Premiere</h3>
+          <p>Red carpet and premiere content — drives strong engagement from fandom and celebrity-style pages.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Strategy -->
+    <div>
+      <h3 style="color: var(--white); font-size: 1.1rem; margin-bottom: 0.5rem;">Call-to-Action Strategy</h3>
+      <div class="card">
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">While clipping is a top-of-funnel awareness strategy, we can still require a CTA. Provide a ticket tracking link and require creators to include it in the caption or pin comment on every piece of content.</p>
+        <p style="color: var(--muted); font-size: 0.9rem;">In the past, many theatrical release campaigns required creators to include — either in the caption or on screen — the movie title, "in theaters", and the theatrical release date. For example: <span style="color: var(--text); font-style: italic;">"The Mandalorian &amp; Grogu in theaters — May 22, 2026"</span></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04. PRICING -->
+  <section id="pricing">
+    <p class="section-label">04 &mdash; Investment & Pricing</p>
+    <h2 class="section-title">CPM Pricing Model</h2>
+    <p class="section-desc">You pay per 1,000 guaranteed organic views. You only pay for views your content actually receives.</p>
+
+    <div style="overflow-x: auto; margin-bottom: 3rem;">
+      <table class="cpm-table">
+        <thead>
+          <tr>
+            <th class="cpm-row-label"></th>
+            <th class="cpm-t1">
+              <div class="cpm-tier-name">Tier 1</div>
+              <div class="cpm-tier-sub">Entry-Level Scale</div>
+            </th>
+            <th class="cpm-t2">
+              <div class="cpm-tier-name">Tier 2</div>
+              <div class="cpm-tier-sub">Full Campaign Scale</div>
+            </th>
+            <th class="cpm-t3">
+              <div class="cpm-tier-name">Tier 3</div>
+              <div class="cpm-tier-sub">Market Domination</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cpm-row-label">Investment</td>
+            <td class="cpm-t1" data-label="Tier 1 Investment">$50,000 – $249,999</td>
+            <td class="cpm-t2" data-label="Tier 2 Investment">$250,000 – $499,999</td>
+            <td class="cpm-t3" data-label="Tier 3 Investment">$500,000+</td>
+          </tr>
+          <tr>
+            <td class="cpm-row-label">CPM Rate</td>
+            <td class="cpm-t1" data-label="Tier 1 CPM">$5.00 / 1K views</td>
+            <td class="cpm-t2" data-label="Tier 2 CPM">$4.50 / 1K views</td>
+            <td class="cpm-t3" data-label="Tier 3 CPM">$4.00 / 1K views</td>
+          </tr>
+          <tr>
+            <td class="cpm-row-label">Guaranteed Views</td>
+            <td class="cpm-t1" data-label="Tier 1 Views">10M – 50M</td>
+            <td class="cpm-t2" data-label="Tier 2 Views">55.5M – 111M</td>
+            <td class="cpm-t3" data-label="Tier 3 Views">125M+</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05. NEXT STEPS -->
+  <section id="next-steps" style="max-width: 1100px; margin: 0 auto;">
+    <p class="section-label">05 &mdash; Our Recommendation</p>
+    <h2 class="section-title">Our Recommendation</h2>
+
+    <div class="card" style="margin-bottom: 2.5rem; max-width: 760px;">
+      <p style="color: var(--text); font-size: 0.95rem; line-height: 1.75;">Our recommendation is to launch the campaign two weeks before the theatrical release date. For The Mandalorian &amp; Grogu (May 22, 2026), that means going live on May 8, 2026. This gives the clipping engine enough time to build momentum, with content volume peaking as opening weekend approaches. All we need to get started is a library of approved assets — at least 15 clips (trailers, BTS footage, premiere content, TV spots). More assets means more variety across creators, which means better performance from platform algorithms.</p>
+    </div>
+
+    <h3 style="color: var(--muted); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.25rem;">Items to Confirm</h3>
+    <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 760px;">
+      <div class="step">
+        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
+        <div class="step-body">
+          <h4>Select Services Suite</h4>
+          <p>Clipping + UGC Content + Cinematic Edits + Premium Page Distribution</p>
+        </div>
+      </div>
+      <div class="step">
+        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
+        <div class="step-body">
+          <h4>Confirm Asset Library</h4>
+          <p>Confirm availability of ~20 approved assets (trailers, BTS footage, premiere content, TV spots)</p>
+        </div>
+      </div>
+      <div class="step">
+        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
+        <div class="step-body">
+          <h4>Confirm Launch Date</h4>
+          <p>Campaign goes live May 8, 2026 — two weeks before the May 22 theatrical release</p>
+        </div>
+      </div>
+      <div class="step">
+        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
+        <div class="step-body">
+          <h4>Confirm Platforms</h4>
+          <p>TikTok, Instagram Reels, YouTube Shorts, and X</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <p>The Mandalorian &amp; Grogu x Vyro &mdash; Social Content &amp; Distribution Campaign &mdash; Disney / Lucasfilm &mdash; April 2026</p>
+  </footer>
+
+</body>
+</html>
