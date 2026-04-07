@@ -646,6 +646,53 @@
       50%       { transform: translateX(-50%) translateY(6px); }
     }
 
+    /* CPM MOBILE CARDS */
+    .cpm-mobile-cards { display: none; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+    .cpm-mobile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .cpm-mobile-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cpm-mobile-tier {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .cpm-t1-text { color: #c9962a; }
+    .cpm-t2-text { color: #d4a730; }
+    .cpm-t3-text { color: #e8b84b; }
+    .cpm-mobile-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .cpm-mobile-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .cpm-mobile-row:last-child { border-bottom: none; }
+    .cpm-mobile-row span:first-child {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .cpm-mobile-row span:last-child {
+      color: var(--text);
+      font-weight: 600;
+    }
+
     /* CASE STUDY CARDS */
     .case-study-card {
       display: block;
@@ -712,47 +759,8 @@
         grid-template-columns: repeat(2, 1fr) !important;
       }
 
-      /* CPM table,stack into a card-per-tier layout */
-      .cpm-table thead { display: none; }
-      .cpm-table,
-      .cpm-table tbody,
-      .cpm-table tr,
-      .cpm-table td {
-        display: block;
-        width: 100%;
-      }
-      .cpm-table tr {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        margin-bottom: 1rem;
-        padding: 1rem;
-      }
-      .cpm-table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-        border-right: none;
-        border-top: none;
-        font-size: 0.88rem;
-      }
-      .cpm-table td.cpm-row-label {
-        display: none;
-      }
-      .cpm-table td::before {
-        content: attr(data-label);
-        font-size: 0.7rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--muted);
-        font-weight: 600;
-      }
-      .cpm-table td.cpm-t1,
-      .cpm-table td.cpm-t2,
-      .cpm-table td.cpm-t3 {
-        background: none;
-      }
+      .cpm-mobile-cards { display: flex; }
+      .cpm-desktop-table { display: none; }
 
       /* Allocation table */
       .alloc-table thead { display: none; }
@@ -1038,7 +1046,29 @@
     <h2 class="section-title">CPM Pricing Model</h2>
     <p class="section-desc">You pay per 1,000 guaranteed organic views — you only pay for views your content actually receives.</p>
 
-    <div style="overflow-x: auto; margin-bottom: 3rem;">
+    <!-- Mobile tier cards (hidden on desktop) -->
+    <div class="cpm-mobile-cards">
+      <div class="cpm-mobile-card">
+        <div class="cpm-mobile-header"><span class="cpm-mobile-tier cpm-t1-text">Tier 1</span><span class="cpm-mobile-sub">Entry-Level Scale</span></div>
+        <div class="cpm-mobile-row"><span>Investment</span><span>$50,000 – $249,999</span></div>
+        <div class="cpm-mobile-row"><span>CPM Rate</span><span>$5.00 / 1K views</span></div>
+        <div class="cpm-mobile-row"><span>Guaranteed Views</span><span>10M – 50M</span></div>
+      </div>
+      <div class="cpm-mobile-card">
+        <div class="cpm-mobile-header"><span class="cpm-mobile-tier cpm-t2-text">Tier 2</span><span class="cpm-mobile-sub">Full Campaign Scale</span></div>
+        <div class="cpm-mobile-row"><span>Investment</span><span>$250,000 – $499,999</span></div>
+        <div class="cpm-mobile-row"><span>CPM Rate</span><span>$4.50 / 1K views</span></div>
+        <div class="cpm-mobile-row"><span>Guaranteed Views</span><span>55.5M – 111M</span></div>
+      </div>
+      <div class="cpm-mobile-card">
+        <div class="cpm-mobile-header"><span class="cpm-mobile-tier cpm-t3-text">Tier 3</span><span class="cpm-mobile-sub">Market Domination</span></div>
+        <div class="cpm-mobile-row"><span>Investment</span><span>$500,000+</span></div>
+        <div class="cpm-mobile-row"><span>CPM Rate</span><span>$4.00 / 1K views</span></div>
+        <div class="cpm-mobile-row"><span>Guaranteed Views</span><span>125M+</span></div>
+      </div>
+    </div>
+
+    <div class="cpm-desktop-table" style="overflow-x: auto; margin-bottom: 3rem;">
       <table class="cpm-table">
         <thead>
           <tr>
@@ -1081,6 +1111,7 @@
     </div>
 
   </section>
+
 
   <div class="divider"></div>
 
