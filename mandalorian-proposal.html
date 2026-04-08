@@ -201,7 +201,7 @@
     .section-desc {
       color: var(--muted);
       font-size: 1.05rem;
-      max-width: 660px;
+      max-width: 100%;
       margin-bottom: 3.5rem;
     }
 
@@ -492,28 +492,31 @@
       content: '';
       position: absolute;
       left: 0;
-      top: 0;
-      bottom: 0;
+      top: 0.5rem;
+      bottom: 0.5rem;
       width: 2px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
+      background: var(--border);
     }
 
     .timeline-item {
       position: relative;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       padding-left: 1.5rem;
     }
+
+    .timeline-item:last-child { margin-bottom: 0; }
 
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -2.45rem;
-      top: 0.4rem;
-      width: 10px;
-      height: 10px;
+      left: -2.3rem;
+      top: 0.35rem;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: var(--gold);
-      border: 2px solid var(--bg);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--gold);
     }
 
     .timeline-date {
@@ -643,6 +646,53 @@
       50%       { transform: translateX(-50%) translateY(6px); }
     }
 
+    /* CPM MOBILE CARDS */
+    .cpm-mobile-cards { display: none; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+    .cpm-mobile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .cpm-mobile-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cpm-mobile-tier {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .cpm-t1-text { color: #c9962a; }
+    .cpm-t2-text { color: #d4a730; }
+    .cpm-t3-text { color: #e8b84b; }
+    .cpm-mobile-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .cpm-mobile-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .cpm-mobile-row:last-child { border-bottom: none; }
+    .cpm-mobile-row span:first-child {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .cpm-mobile-row span:last-child {
+      color: var(--text);
+      font-weight: 600;
+    }
+
     /* CASE STUDY CARDS */
     .case-study-card {
       display: block;
@@ -699,52 +749,18 @@
         grid-template-columns: 1fr;
       }
 
-      #case-studies .grid-2,
-      #case-studies > div[style] {
+      /* Add-on cards and other inline grids */
+      div[style*="repeat(3, 1fr)"],
+      div[style*="repeat(4, 1fr)"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      #case-studies > div {
         grid-template-columns: repeat(2, 1fr) !important;
       }
 
-      /* CPM table — stack into a card-per-tier layout */
-      .cpm-table thead { display: none; }
-      .cpm-table,
-      .cpm-table tbody,
-      .cpm-table tr,
-      .cpm-table td {
-        display: block;
-        width: 100%;
-      }
-      .cpm-table tr {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        margin-bottom: 1rem;
-        padding: 1rem;
-      }
-      .cpm-table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-        border-right: none;
-        border-top: none;
-        font-size: 0.88rem;
-      }
-      .cpm-table td.cpm-row-label {
-        display: none;
-      }
-      .cpm-table td::before {
-        content: attr(data-label);
-        font-size: 0.7rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--muted);
-        font-weight: 600;
-      }
-      .cpm-table td.cpm-t1,
-      .cpm-table td.cpm-t2,
-      .cpm-table td.cpm-t3 {
-        background: none;
-      }
+      .cpm-mobile-cards { display: flex; }
+      .cpm-desktop-table { display: none; }
 
       /* Allocation table */
       .alloc-table thead { display: none; }
@@ -787,7 +803,6 @@
       <li><a href="#case-studies">Case Studies</a></li>
       <li><a href="#strategy">Strategy</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#next-steps">Next Steps</a></li>
     </ul>
   </nav>
 
@@ -823,7 +838,7 @@
 
   <!-- 01. OPPORTUNITY -->
   <section id="opportunity">
-    <p class="section-label">01 &mdash; The Opportunity</p>
+    <p class="section-label">01 The Opportunity</p>
     <h2 class="section-title">Why This Campaign, Why Now</h2>
     <p class="section-desc">Drive mass awareness for The Mandalorian &amp; Grogu theatrical release through organic-feeling creator content that floods social feeds in the two weeks leading up to opening day.</p>
 
@@ -841,24 +856,24 @@
       <div class="card">
         <div class="card-icon">📱</div>
         <h3>Flood Social Feeds</h3>
-        <p>Saturate TikTok, Instagram Reels, YouTube Shorts, and X with content that feels native and genuine — not promotional.</p>
+        <p>Saturate TikTok, Instagram Reels, and YouTube Shorts with content that feels native and genuine, not promotional.</p>
       </div>
     </div>
 
     <div style="margin-top: 3rem;">
       <h3 style="color: var(--white); font-size: 1.1rem; margin-bottom: 1rem;">Why Vyro</h3>
-      <p style="color: var(--muted); max-width: 760px; margin-bottom: 1rem;">Vyro is a marketplace connecting brands with approximately 80,000 vetted short-form video creators across TikTok, Instagram, and YouTube Shorts. Our creators distribute content in a way that feels native and organic to each platform — not promotional. We operate on a CPM model: you set a rate, and you only pay for views actually delivered.</p>
-      <p style="color: var(--muted); max-width: 760px; margin-bottom: 2rem;">Every creator in our network is pre-vetted through OAuth backend analytics access. We check viewership geography, engagement quality, and suspicious follower patterns to ensure real reach with real audiences.</p>
+      <p style="color: var(--muted); margin-bottom: 1rem;">Vyro is a marketplace connecting brands with approximately 80,000 vetted short-form video creators across TikTok, Instagram, and YouTube Shorts. Our creators distribute content in a way that feels native and organic to each platform,not promotional. We operate on a CPM model: you set a rate, and you only pay for views actually delivered.</p>
+      <p style="color: var(--muted); margin-bottom: 2rem;">Every creator in our network is pre-vetted through OAuth backend analytics access. We check viewership geography, engagement quality, and suspicious engagement patterns to ensure real reach with real audiences.</p>
       <div class="grid-3">
         <div class="card">
           <div class="card-icon">🔍</div>
           <h3>Clip Review</h3>
-          <p>Every submitted clip is reviewed against the campaign brief to ensure it aligns with required messaging, brand safety standards, and creative guidelines before it goes live.</p>
+          <p>Every submitted clip is reviewed against the campaign brief to ensure it aligns with required messaging, brand safety standards, and creative guidelines.</p>
         </div>
         <div class="card">
           <div class="card-icon">📊</div>
           <h3>Campaign Monitoring & Fraud Prevention</h3>
-          <p>Clips are continuously monitored throughout the campaign to confirm they remain compliant and that engagement appears organic and authentic — not inflated.</p>
+          <p>Clips are continuously monitored throughout the campaign to ensure they remain compliant with the campaign brief and that all engagement is organic and authentic.</p>
         </div>
         <div class="card">
           <div class="card-icon">⚖️</div>
@@ -873,59 +888,58 @@
 
   <!-- 02. SERVICES -->
   <section id="services">
-    <p class="section-label">02 &mdash; What We Do</p>
+    <p class="section-label">02 What We Do</p>
     <h2 class="section-title">Our Services</h2>
-    <p class="section-desc">A layered approach combining core clipping distribution with high-impact add-ons designed for tentpole theatrical releases.</p>
+    <p class="section-desc" style="max-width: 100%;">A layered approach combining core clipping distribution with high-impact add-ons designed for tentpole theatrical releases.</p>
 
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-      <div class="card">
-        <div class="card-icon">✂️</div>
-        <h3>Core: Clipping</h3>
-        <p>We take your existing content — trailers, BTS footage, TV spots — and distribute it across thousands of short-form video channels. Our 80,000+ vetted creators clip, caption, and post content that feels native to TikTok, Instagram Reels, and YouTube Shorts. A 5,000-view minimum per clip means you only pay for content that performs.</p>
+    <!-- Core: full width -->
+    <div class="card" style="margin-bottom: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+        <div class="card-icon" style="margin-bottom:0;">✂️</div>
+        <h3 style="margin-bottom:0;">Core: Clipping</h3>
       </div>
+      <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+        <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>We take your existing content (trailers, BTS footage, TV spots, etc.) and distribute it across thousands of short-form social channels.</li>
+        <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>Our 80,000+ vetted creators clip, caption, and post content that feels native to TikTok, Instagram Reels, and YouTube Shorts.</li>
+        <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>A 5,000-view minimum per clip means you only pay for content that performs.</li>
+      </ul>
+    </div>
+
+    <!-- Add-ons: 3 across -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
       <div class="card">
         <div class="card-icon">🎭</div>
         <h3>Add-On: UGC-Style Content</h3>
-        <p>Scripted, produced pieces that feel human-made and organic — costumed characters reacting to trailers, fan-style reaction videos with on-screen text. Produced in-house by our team. Content that doesn't look like it came from a studio.</p>
-        <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <a href="https://drive.google.com/file/d/15APrW4Ar2EEugRPj_LrKzSNASN8z_bRy/view?usp=sharing" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> Predator: Badlands
-          </a>
-          <a href="https://drive.google.com/file/d/1-AVkdirOxMo9svXZ6aC9dCVU4DBTwS3T/view?usp=drive_link" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> The Mandalorian &amp; Grogu
-          </a>
+        <ul style="list-style: none; padding: 0; margin: 0 0 1.25rem 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>Scripted, choreographed content designed to feel fan-made and organic.</li>
+          <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>Produced in-house by our team, allowing us to tailor the creative concept depending on the tone of the campaign.</li>
+        </ul>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="https://drive.google.com/file/d/15APrW4Ar2EEugRPj_LrKzSNASN8z_bRy/view?usp=sharing" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> Predator: Badlands</a>
+          <a href="https://drive.google.com/file/d/1-AVkdirOxMo9svXZ6aC9dCVU4DBTwS3T/view?usp=drive_link" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> The Mandalorian &amp; Grogu</a>
         </div>
       </div>
       <div class="card">
         <div class="card-icon">🎬</div>
         <h3>Add-On: Cinematic Edits</h3>
-        <p>Polished re-edits of your trailers and footage optimized for vertical video — tighter pacing, platform-native text overlays, trending audio integration. Distributed through fan pages known for cinematic movie edits.</p>
-        <div style="margin-top: 1.25rem;">
-          <a href="https://drive.google.com/drive/folders/164NxEryz4NNVAGd3wqLssk1_4nb1WTDx?usp=drive_link" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> Cinematic Edits
-          </a>
-        </div>
+        <ul style="list-style: none; padding: 0; margin: 0 0 1.25rem 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>Polished edits of your existing footage, designed to feel cinematic and visually compelling.</li>
+          <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>Often distributed through fan pages known for cinematic edits, helping the content feel more native to the audience.</li>
+        </ul>
+        <a href="https://drive.google.com/drive/folders/164NxEryz4NNVAGd3wqLssk1_4nb1WTDx?usp=drive_link" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> Cinematic Edits</a>
       </div>
       <div class="card">
         <div class="card-icon">👑</div>
         <h3>Add-On: White Glove Distribution</h3>
-        <p>Curated placement on Vyro's most popular and influential social pages. Content is tailored to each page's style and voice so it feels like the page chose to feature it — not like a studio ad.</p>
-        <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <a href="https://www.instagram.com/p/DSSnOC9DdM-/?igsh=MWUxeDcyeDY1Nzc5eA%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> Avatar: Fire and Ash
-          </a>
-          <a href="https://www.instagram.com/p/DSaaIQ_jIG_/?igsh=MXVnMGgwYmw1czBwbQ%3D%3D&img_index=1" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> Avatar: Fire and Ash (2)
-          </a>
-          <a href="https://www.instagram.com/p/DVerXV4AJ68/?igsh=MXRkZ2ZrbXVqNDN4bQ%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> Hoppers
-          </a>
-          <a href="https://www.instagram.com/p/DUV3L7QgBlV/?igsh=MXcwcGMzN2hoZGVqMA%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> Send Help
-          </a>
-          <a href="https://www.instagram.com/p/DQwqAPZAMDd/?igsh=eWR4cmZybDQ2bWtu&img_index=1" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;">
-            <span style="opacity:0.6;">&#9654;</span> Predator: Badlands
-          </a>
+        <ul style="list-style: none; padding: 0; margin: 0 0 1.25rem 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>Placement on some of the most popular social pages, with content formatted to match each page's style so it feels natural to their audience, rather than overtly promotional.</li>
+        </ul>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="https://www.instagram.com/p/DSSnOC9DdM-/?igsh=MWUxeDcyeDY1Nzc5eA%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> Avatar: Fire and Ash</a>
+          <a href="https://www.instagram.com/p/DSaaIQ_jIG_/?igsh=MXVnMGgwYmw1czBwbQ%3D%3D&img_index=1" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> Avatar: Fire and Ash (2)</a>
+          <a href="https://www.instagram.com/p/DVerXV4AJ68/?igsh=MXRkZ2ZrbXVqNDN4bQ%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> Hoppers</a>
+          <a href="https://www.instagram.com/p/DUV3L7QgBlV/?igsh=MXcwcGMzN2hoZGVqMA%3D%3D" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> Send Help</a>
+          <a href="https://www.instagram.com/p/DQwqAPZAMDd/?igsh=eWR4cmZybDQ2bWtu&img_index=1" target="_blank" style="font-size: 0.82rem; color: var(--gold-light); text-decoration: none; display: flex; align-items: center; gap: 0.4rem;"><span style="opacity:0.6;">&#9654;</span> Predator: Badlands</a>
         </div>
       </div>
     </div>
@@ -963,7 +977,7 @@
 
   <!-- 03. STRATEGY -->
   <section id="strategy">
-    <p class="section-label">03 &mdash; Campaign Strategy</p>
+    <p class="section-label">03 Campaign Strategy</p>
     <h2 class="section-title">Timeline & Execution</h2>
     <p class="section-desc">A concentrated two-week campaign window leading up to the May 22, 2026 theatrical release. Maximum intensity, maximum saturation.</p>
 
@@ -973,12 +987,12 @@
         <div class="timeline-item">
           <div class="timeline-date">May 8 – 22, 2026</div>
           <div class="timeline-title">Launch Wave</div>
-          <div class="timeline-desc">Flood social platforms with clipping content, debut UGC stunts, and release the first round of cinematic edits. Establish presence across all major short-form platforms. Save the White Glove and UGC for the 5 days leading up to the theatrical release.</div>
+          <div class="timeline-desc">Flood social platforms with clipping content. Establish presence across all major short-form platforms.</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">May 17 – 22, 2026 — Peak Intensity</div>
+          <div class="timeline-date">May 17 – 22, 2026</div>
           <div class="timeline-title">White Glove & UGC Activation</div>
-          <div class="timeline-desc">White Glove premium page placements and UGC stunts go live. All four services firing simultaneously — maximum saturation heading into opening weekend.</div>
+          <div class="timeline-desc">White Glove premium page placements and UGC stunts go live to build anticipation as the theatrical release approaches.</div>
         </div>
       </div>
     </div>
@@ -986,12 +1000,15 @@
     <!-- Asset Requirements -->
     <div style="margin-bottom: 3.5rem;">
       <h3 style="color: var(--white); font-size: 1.1rem; margin-bottom: 0.5rem;">Asset Requirements</h3>
-      <p style="color: var(--muted); font-size: 0.9rem; max-width: 700px; margin-bottom: 1.5rem;">More assets equals better performance. Platform algorithms prioritize new content, so a diverse asset library is essential for sustained reach. We recommend approximately 20 assets to start. For reference: the Send Help campaign leveraged red carpet and premiere footage that drove especially strong engagement from fandom and celebrity-style pages.</p>
+      <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem 0; display: flex; flex-direction: column; gap: 0.5rem;">
+        <li style="font-size: 0.9rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>More assets equals better performance. Platform algorithms prioritize new content, so a diverse asset library is essential for sustained reach (at least 15 assets).</li>
+        <li style="font-size: 0.9rem; color: var(--muted); display: flex; gap: 0.6rem;"><span style="color: var(--gold-light); flex-shrink:0;">&#9654;</span>For reference: the Send Help campaign leveraged red carpet and premiere footage that drove strong engagement, leaning into fandom and recognizable celebrities as the focus.</li>
+      </ul>
       <div class="grid-3">
         <div class="card">
           <div class="card-icon">🎬</div>
           <h3>Trailers & TV Spots</h3>
-          <p>Official trailers, teasers, and TV spots — the foundation of the clipping library.</p>
+          <p>Official trailers, teasers, and TV spots, the foundation of the clipping library.</p>
         </div>
         <div class="card">
           <div class="card-icon">🎥</div>
@@ -1001,7 +1018,7 @@
         <div class="card">
           <div class="card-icon">🌟</div>
           <h3>Red Carpet & Premiere</h3>
-          <p>Red carpet and premiere content — drives strong engagement from fandom and celebrity-style pages.</p>
+          <p>Red carpet and premiere content, drives strong engagement from fandom and celebrity-style pages.</p>
         </div>
       </div>
     </div>
@@ -1011,7 +1028,7 @@
       <h3 style="color: var(--white); font-size: 1.1rem; margin-bottom: 0.5rem;">Call-to-Action Strategy</h3>
       <div class="card">
         <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">While clipping is a top-of-funnel awareness strategy, we can still require a CTA. Provide a ticket tracking link and require creators to include it in the caption or pin comment on every piece of content.</p>
-        <p style="color: var(--muted); font-size: 0.9rem;">In the past, many theatrical release campaigns required creators to include — either in the caption or on screen — the movie title, "in theaters", and the theatrical release date. For example: <span style="color: var(--text); font-style: italic;">"The Mandalorian &amp; Grogu in theaters — May 22, 2026"</span></p>
+        <p style="color: var(--muted); font-size: 0.9rem;">In the past, many theatrical release campaigns required creators to include the movie title + "in theaters" + release date, either on screen or in the caption. For example: <span style="color: var(--text); font-style: italic;">"The Mandalorian &amp; Grogu in theaters, May 22, 2026"</span></p>
       </div>
     </div>
   </section>
@@ -1020,11 +1037,33 @@
 
   <!-- 04. PRICING -->
   <section id="pricing">
-    <p class="section-label">04 &mdash; Investment & Pricing</p>
+    <p class="section-label">04 Investment & Pricing</p>
     <h2 class="section-title">CPM Pricing Model</h2>
-    <p class="section-desc">You pay per 1,000 guaranteed organic views. You only pay for views your content actually receives.</p>
+    <p class="section-desc">You pay per 1,000 guaranteed organic views — you only pay for views your content actually receives.</p>
 
-    <div style="overflow-x: auto; margin-bottom: 3rem;">
+    <!-- Mobile tier cards (hidden on desktop) -->
+    <div class="cpm-mobile-cards">
+      <div class="cpm-mobile-card">
+        <div class="cpm-mobile-header"><span class="cpm-mobile-tier cpm-t1-text">Tier 1</span><span class="cpm-mobile-sub">Entry-Level Scale</span></div>
+        <div class="cpm-mobile-row"><span>Investment</span><span>$50,000+</span></div>
+        <div class="cpm-mobile-row"><span>CPM Rate</span><span>$5.00 / 1K views</span></div>
+        <div class="cpm-mobile-row"><span>Guaranteed Views</span><span>10M – 50M</span></div>
+      </div>
+      <div class="cpm-mobile-card">
+        <div class="cpm-mobile-header"><span class="cpm-mobile-tier cpm-t2-text">Tier 2</span><span class="cpm-mobile-sub">Full Campaign Scale</span></div>
+        <div class="cpm-mobile-row"><span>Investment</span><span>$250,000+</span></div>
+        <div class="cpm-mobile-row"><span>CPM Rate</span><span>$4.50 / 1K views</span></div>
+        <div class="cpm-mobile-row"><span>Guaranteed Views</span><span>55.5M – 111M</span></div>
+      </div>
+      <div class="cpm-mobile-card">
+        <div class="cpm-mobile-header"><span class="cpm-mobile-tier cpm-t3-text">Tier 3</span><span class="cpm-mobile-sub">Market Domination</span></div>
+        <div class="cpm-mobile-row"><span>Investment</span><span>$500,000+</span></div>
+        <div class="cpm-mobile-row"><span>CPM Rate</span><span>$4.00 / 1K views</span></div>
+        <div class="cpm-mobile-row"><span>Guaranteed Views</span><span>125M+</span></div>
+      </div>
+    </div>
+
+    <div class="cpm-desktop-table" style="overflow-x: auto; margin-bottom: 3rem;">
       <table class="cpm-table">
         <thead>
           <tr>
@@ -1046,8 +1085,8 @@
         <tbody>
           <tr>
             <td class="cpm-row-label">Investment</td>
-            <td class="cpm-t1" data-label="Tier 1 Investment">$50,000 – $249,999</td>
-            <td class="cpm-t2" data-label="Tier 2 Investment">$250,000 – $499,999</td>
+            <td class="cpm-t1" data-label="Tier 1 Investment">$50,000+</td>
+            <td class="cpm-t2" data-label="Tier 2 Investment">$250,000+</td>
             <td class="cpm-t3" data-label="Tier 3 Investment">$500,000+</td>
           </tr>
           <tr>
@@ -1068,54 +1107,12 @@
 
   </section>
 
-  <div class="divider"></div>
 
-  <!-- 05. NEXT STEPS -->
-  <section id="next-steps" style="max-width: 1100px; margin: 0 auto;">
-    <p class="section-label">05 &mdash; Our Recommendation</p>
-    <h2 class="section-title">Our Recommendation</h2>
-
-    <div class="card" style="margin-bottom: 2.5rem; max-width: 760px;">
-      <p style="color: var(--text); font-size: 0.95rem; line-height: 1.75;">Our recommendation is to launch the campaign two weeks before the theatrical release date. For The Mandalorian &amp; Grogu (May 22, 2026), that means going live on May 8, 2026. This gives the clipping engine enough time to build momentum, with content volume peaking as opening weekend approaches. All we need to get started is a library of approved assets — at least 15 clips (trailers, BTS footage, premiere content, TV spots). More assets means more variety across creators, which means better performance from platform algorithms.</p>
-    </div>
-
-    <h3 style="color: var(--muted); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.25rem;">Items to Confirm</h3>
-    <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 760px;">
-      <div class="step">
-        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
-        <div class="step-body">
-          <h4>Select Services Suite</h4>
-          <p>Clipping + UGC Content + Cinematic Edits + Premium Page Distribution</p>
-        </div>
-      </div>
-      <div class="step">
-        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
-        <div class="step-body">
-          <h4>Confirm Asset Library</h4>
-          <p>Confirm availability of ~20 approved assets (trailers, BTS footage, premiere content, TV spots)</p>
-        </div>
-      </div>
-      <div class="step">
-        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
-        <div class="step-body">
-          <h4>Confirm Launch Date</h4>
-          <p>Campaign goes live May 8, 2026 — two weeks before the May 22 theatrical release</p>
-        </div>
-      </div>
-      <div class="step">
-        <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--gold-dim); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-light); font-size:1rem;">&#10003;</div>
-        <div class="step-body">
-          <h4>Confirm Platforms</h4>
-          <p>TikTok, Instagram Reels, YouTube Shorts, and X</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
   <!-- FOOTER -->
   <footer>
-    <p>The Mandalorian &amp; Grogu x Vyro &mdash; Social Content &amp; Distribution Campaign &mdash; Disney / Lucasfilm &mdash; April 2026</p>
+    <p>The Mandalorian &amp; Grogu x Vyro &nbsp;|&nbsp; Social Content &amp; Distribution Campaign &nbsp;|&nbsp; Disney / Lucasfilm &nbsp;|&nbsp; April 2026</p>
   </footer>
 
 </body>
